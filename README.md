@@ -1,6 +1,18 @@
-# Welcome to Your New Wails3 Project!
+# Welcome to Nats-UI Project!
 
-Congratulations on generating your Wails3 application! This README will guide you through the next steps to get your project up and running.
+Nats-UI is a GUI project NATS that is a message queue.
+
+Nats-UI use Wails 3 + Vue 3 Typescript, and Vuetify 3.
+
+
+Hippo icon is from:
+https://www.iconarchive.com/show/childrens-book-animals-icons-by-iconarchive/Hippo-icon.html
+
+
+## License
+
+This software is under MIT license, to visit file [LICENSE](LICENSE) and https://mit-license.org/ for details.
+
 
 ## Getting Started
 
@@ -10,6 +22,9 @@ Congratulations on generating your Wails3 application! This README will guide yo
 
    ```
    wails3 dev
+
+   # frontend dev
+   npm run build
    ```
 
    This will start your application and enable hot-reloading for both frontend and backend changes.
@@ -21,6 +36,16 @@ Congratulations on generating your Wails3 application! This README will guide yo
    ```
 
    This will create a production-ready executable in the `build` directory.
+
+   Removing the console window for wails3 projects.
+   The quick answer is you can run $env:PRODUCTION="true"; wails3 build.
+   For editing pipelines, edit build/windows/Taskfile.yml and customise build.
+
+   ```
+   $env:PRODUCTION="true"
+   wails3 build
+   upx .\bin\natsui.exe
+   ```
 
 ## Exploring Wails3 Features
 
