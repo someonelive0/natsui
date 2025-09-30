@@ -36,7 +36,7 @@ func main() {
 	// 'Mac' options tailor the application when running an macOS.
 	app := application.New(application.Options{
 		Name:        "natsui",
-		Description: "A demo of using raw HTML & CSS",
+		Description: "Nats GUI tool",
 		Services: []application.Service{
 			application.NewService(&GreetService{}),
 		},
@@ -61,8 +61,16 @@ func main() {
 			Backdrop:                application.MacBackdropTranslucent,
 			TitleBar:                application.MacTitleBarHiddenInset,
 		},
-		BackgroundColour: application.NewRGB(27, 38, 54),
-		URL:              "/",
+		BackgroundColour:    application.NewRGB(27, 38, 54),
+		URL:                 "/",
+		Width:               1024,
+		Height:              768,
+		MinimiseButtonState: application.ButtonEnabled, // ButtonHidden, Setting Button States During Window Creation
+		MaximiseButtonState: application.ButtonEnabled, // ButtonDisabled,
+		CloseButtonState:    application.ButtonEnabled,
+		// Windows: application.WindowsWindow{ // Controlling Window Style (Windows)
+		// 	ExStyle: w32.WS_EX_CLIENTEDGE | w32.WS_EX_COMPOSITED | w32.WS_EX_TRANSPARENT,
+		// },
 	})
 	log.Infof("init app main window")
 
@@ -77,7 +85,9 @@ func main() {
 	}()
 
 	// Run the application. This blocks until the application has been exited.
+	log.Infof("app running...")
 	err := app.Run()
+	log.Infof("app end...")
 
 	// If an error occurred while running the application, log it and exit.
 	if err != nil {
