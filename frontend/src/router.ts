@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 // import Bar from './components/Bar.vue'
 // import Foo from './components/Foo.vue'
-import HelloWorld from './components/HelloWorld.vue'
+import Dashboard from './components/Dashboard.vue'
 
 
 
 const routes = [
-    { path: '/', name: 'HelloWorld', component: HelloWorld },
+    { path: '/', name: 'Dashboard', component: Dashboard },
     // { path: '/foo', name: 'Foo', component: Foo,
     //   props: true, mete: { title: 'foo' }
     // },

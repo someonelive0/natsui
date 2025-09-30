@@ -1,11 +1,12 @@
 <template>
-  <v-layout class="rounded rounded-md">
+  <v-app id="inspire">
 
     <v-navigation-drawer
-        permanent
-        v-model="drawer"
-        :rail="rail"
-        @click="rail = false"
+      color="cyan-lighten-5"
+      permanent
+      v-model="drawer"
+      :rail="rail"
+      @click="rail = false"
     >
 
       <v-list density="compact" style="padding: 0px;">
@@ -106,7 +107,7 @@
       <v-app-bar-title>NatsUI</v-app-bar-title>
 
       <template v-slot:append>
-        <v-btn icon="mdi-cog" @click="setting"></v-btn>
+        <v-btn icon="mdi-cog" @click="openSetting"></v-btn>
         <!-- <v-btn icon="mdi-magnify"></v-btn> -->
         <!-- <v-btn icon="mdi-dots-vertical"></v-btn> -->
         <v-menu>
@@ -114,36 +115,23 @@
               <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
             </template>
             <v-list density="compact">
-              <v-list-item density="compact" prepend-icon="mdi-information" title="About" @click="about()" />
+              <v-list-item density="compact" prepend-icon="mdi-information" title="About" @click="openAbout()" />
               <v-list-item density="compact" prepend-icon="mdi-hammer-screwdriver" title="Kcat" @click="router.push({ name: 'Kcat', })" />
             </v-list>
           </v-menu>
       </template>
     </v-app-bar>
 
-    <!-- <v-main class="d-flex align-center justify-center" style="min-height: 300px;"> -->
+
     <v-main style="min-height: 300px;">
       <router-view />
     </v-main>
 
-    <!-- <v-footer name="footer" density="compact" app
-      class="bg-teal text-center d-flex flex-column"
-    >
-      <div class="bg-teal d-flex w-100 align-center px-4">
-        {{ new Date().getFullYear() }} — <strong>NatsUI</strong>
+  </v-app>
 
-        <v-spacer></v-spacer>
-        <v-icon icon="mdi-home" size="x-small" />
-        <v-icon icon="mdi-calendar" size="x-small" />
-        <v-icon icon="mdi-paperclip" size="x-small" />
-      </div>
-    </v-footer> -->
-
-  </v-layout>
-
-  <v-dialog v-model="setting_dialog" width="600">
+  <!-- <v-dialog v-model="setting_dialog" width="600">
     <Setting :myconfig="myconfig" @settingCancel="settingCancel" @settingSave="settingSave"/>
-  </v-dialog>
+  </v-dialog> -->
 
   <v-dialog v-model="about_dialog" width="auto">
     <About />
@@ -163,7 +151,6 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import About from './components/About.vue';
-import Setting from './components/Setting.vue';
 // import { backend } from "./wailsjs/go/models";
 
 
@@ -184,157 +171,41 @@ var connection_addr = ref('');
 let snackbar = ref(false);
 let snacktext = '';
 
+
 onMounted(() => {
-  getMyconfig();
 });
 
 const refresh = () => {
-  if (myconfig == null) getMyconfig();
-  getBrokers();
-  getTopics();
-  getGroups();
-}
-
-const getMyconfig = () => {
-  // window.go.main.App.GetMyconfig().then((item: backend.Myconfig) => {
-  //   console.log('App.GetMyconfig ', item);
-  //   myconfig = item;
-  //   connection_name.value = item.kafka.name;
-  //   connection_addr.value = item.kafka.brokers[0];
-  // })
-  // .catch((err: string) => {
-  //   console.error('KafkaTool.getMyconfig', err);
-  // });
-}
-
-const getBrokers = () => {
-  // window.go.backend.ZkTool.ListBrokers(zk_hosts).then(items => {
-  //   console.log('ZkTool.ListBrokers ', items);
-  //   brokers = items
-  // })
-  // .catch(err => {
-  //   console.error('ZkTool.ListBrokers ', err);
-  // });
-
-  // window.go.backend.KafkaTool.ListBrokers().then((items: Array<backend.Broker>) => {
-  //   // console.log('Kafkatool.ListBrokers ', items);
-  //   brokers = items;
-  //   snacktext = 'get brokers success!';
-  //   snackbar.value = true;
-  //   kafkaConnected = 1;
-  //   iconColor = "blue-darken-2";
-  // })
-  // .catch((err: string) => {
-  //   console.error('Kafkatool.ListBrokers ', err);
-  //   snacktext = 'get brokers failed: ' + err;
-  //   snackbar.value = true;
-  //   kafkaConnected = 0;
-  //   iconColor = "grey";
-  // });
-}
-
-const getTopics = () => {
-  // window.go.backend.KafkaTool.ListTopics().then((items: Array<string>) => {
-  //   // console.log('KafkaTool.ListTopics ', items);
-  //   topics = items
-  // })
-  // .catch((err: string) => {
-  //   console.error('KafkaTool.ListTopics', err);
-  // });
-}
-
-const getGroups = () => {
-  // window.go.backend.KafkaTool.ListGroups().then((items: Array<string>) => {
-  //   // console.log('KafkaTool.ListGroups ', items);
-  //   groups = items
-  // })
-  // .catch((err: string) => {
-  //   console.error('KafkaTool.ListGroups', err);
-  // });
 }
 
 const gotoDashboard = () => {
-  router.push({
-    name:'Dashboard'
-  });
-}
-
-const gotoZooKeeper = () => {
-  router.push({
-    name:'ZooKeeper',
-  });
-}
-
-const gotoBroker = (broker: string, i: number) => {
-  // console.log('选择 broker ', broker, i);
-  router.push({
-    name: 'Broker',
-    state: { broker: broker }
-  });
 }
 
 const gotoBrokers = () => {
-  router.push({
-    name: 'Brokers'
-  });
 }
 
-const gotoTopic = (topic: string, i: number) => {
-  // console.log('选择 topic ', topic, i);
-  router.push({
-    name: 'Topic',
-    query: {
-        id: i,
-        topic: topic
-    }
-  });
+const gotoBroker = (broker: string, i: number) => {
 }
 
 const gotoTopics = () => {
-  router.push({
-    name: 'Topics'
-  });
 }
 
-const gotoGroup = (group: string, i: number) => {
-  // console.log('选择 group ', group, i);
-  router.push({
-    name: 'Group',
-    query: {
-        id: i,
-        group: group
-    }
-  });
+const gotoTopic = (topic: string, i: number) => {
 }
 
 const gotoGroups = () => {
-  router.push({
-    name: 'Groups'
-  });
 }
 
-const setting = () => {
-  setting_dialog.value = true;
-}
-const settingCancel = () => {
-  setting_dialog.value = false;
-}
-const settingSave = (item: string) => {
-  // console.log('settingSave ', item);
-  // window.go.main.App.SetMyconfig(item).then(() => {
-  //   snacktext = 'Save setting success!';
-  //   snackbar.value = true;
-  //   getMyconfig();
-  // })
-  // .catch((err: string) => {
-  //   console.error('KafkaTool.ListGroups', err);
-  // });
-  // setting_dialog.value = false;
+const gotoGroup = (group: string, i: number) => {
 }
 
-const about = () => {
+const openSetting = () => {
+}
+
+const openAbout = () => {
   about_dialog.value = true;
 }
+
 </script>
 
 <style scoped>

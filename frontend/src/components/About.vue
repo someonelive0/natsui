@@ -18,11 +18,12 @@
       <v-card-text>
         NatsUI is a Nats GUI client.<br/>
         This software is under 
-        
-        <B @click="openBrower('https://mit-license.org')">
-          <v-icon icon="mdi-open-in-new" color="blue-darken-3" size="small"></v-icon>&nbsp;MIT license
-        </B>.
-        <!-- <v-img :src="myLogo" width="330" ></v-img> -->
+        <v-icon icon="mdi-open-in-new" color="blue-darken-3"
+          size="small" @click="openBrower('https://mit-license.org')">
+        </v-icon>
+        &nbsp;MIT license
+
+        <v-img :src="myLogo" width="330" ></v-img>
       </v-card-text>
 
       <v-card-actions>
@@ -36,7 +37,7 @@
 
 
 <script setup lang="ts">
-// import myLogo from "../assets/images/appicon.png";
+import myLogo from "../assets/images/appicon.png";
 // import { Goto } from "../wailsjs/go/main/App";
 
 
