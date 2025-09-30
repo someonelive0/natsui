@@ -12,6 +12,7 @@
   "dependencies": {
     "@wailsio/runtime": "latest",
     "vue": "^3.2.45",
+    "vue-router": "^4.5.1",
     "vuetify": "^3.10.3"
   },
   "devDependencies": {
