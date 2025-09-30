@@ -3,10 +3,13 @@ package main
 import (
 	"embed"
 	_ "embed"
-	"log"
+	"fmt"
 	"time"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/wailsapp/wails/v3/pkg/application"
+
+	"natsui/backend"
 )
 
 // Wails uses Go's `embed` package to embed the frontend files into the binary.
@@ -21,6 +24,10 @@ var assets embed.FS
 // and starts a goroutine that emits a time-based event every second. It subsequently runs the application and
 // logs any error that might occur.
 func main() {
+
+	if err := backend.InitLogRotate("./", "natsui.log", "info", 3, 10); err != nil {
+		fmt.Printf("init log failed: %v\n", err)
+	}
 
 	// Create a new Wails application by providing the necessary options.
 	// Variables 'Name' and 'Description' are for application metadata.
@@ -40,6 +47,7 @@ func main() {
 			ApplicationShouldTerminateAfterLastWindowClosed: true,
 		},
 	})
+	log.Infof("init app")
 
 	// Create a new window with the necessary options.
 	// 'Title' is the title of the window.
@@ -47,7 +55,7 @@ func main() {
 	// 'BackgroundColour' is the background colour of the window.
 	// 'URL' is the URL that will be loaded into the webview.
 	app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title: "NatsUI",
+		Title: "NatsUI", // Title: "Window 1",
 		Mac: application.MacWindow{
 			InvisibleTitleBarHeight: 50,
 			Backdrop:                application.MacBackdropTranslucent,
@@ -56,6 +64,7 @@ func main() {
 		BackgroundColour: application.NewRGB(27, 38, 54),
 		URL:              "/",
 	})
+	log.Infof("init app main window")
 
 	// Create a goroutine that emits an event containing the current time every second.
 	// The frontend can listen to this event and update the UI accordingly.

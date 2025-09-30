@@ -2,7 +2,12 @@ module natsui
 
 go 1.24.0
 
-require github.com/wailsapp/wails/v3 v3.0.0-alpha.31
+require (
+	github.com/antonfisher/nested-logrus-formatter v1.3.1
+	github.com/sirupsen/logrus v1.9.3
+	github.com/wailsapp/wails/v3 v3.0.0-alpha.31
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
+)
 
 require (
 	dario.cat/mergo v1.0.1 // indirect
