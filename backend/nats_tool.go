@@ -3,6 +3,7 @@ package backend
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/nats-io/nats.go"
@@ -22,15 +23,16 @@ func NewNatsTool(conf *NatsConfig) *NatsTool {
  */
 func (p *NatsTool) MakeConn() (nc *nats.Conn, err error) {
 	if len(p.Conf.User) == 0 {
-		nc, err = nats.Connect(p.Conf.Url)
+		nc, err = nats.Connect(strings.Join(p.Conf.Servers, ","))
 	} else {
-		nc, err = nats.Connect(p.Conf.Url, nats.UserInfo(p.Conf.User, p.Conf.Password))
+		nc, err = nats.Connect(strings.Join(p.Conf.Servers, ","),
+			nats.UserInfo(p.Conf.User, p.Conf.Password))
 	}
 	if err != nil {
-		fmt.Printf("connect '%s' failed: %s\n", p.Conf.Url, err)
+		fmt.Printf("connect '%v' failed: %s\n", p.Conf.Servers, err)
 		return nil, err
 	}
-	fmt.Printf("connect '%s' success, %s\n", p.Conf.Url, nc.ConnectedClusterName())
+	fmt.Printf("connect '%v' success, %s\n", p.Conf.Servers, nc.ConnectedClusterName())
 
 	return nc, nil
 }
@@ -42,20 +44,21 @@ func (p *NatsTool) MakeConn() (nc *nats.Conn, err error) {
 func (p *NatsTool) MakeJetStream() (js jetstream.JetStream, err error) {
 	var nc *nats.Conn
 	if len(p.Conf.User) == 0 {
-		nc, err = nats.Connect(p.Conf.Url)
+		nc, err = nats.Connect(strings.Join(p.Conf.Servers, ","))
 	} else {
-		nc, err = nats.Connect(p.Conf.Url, nats.UserInfo(p.Conf.User, p.Conf.Password))
+		nc, err = nats.Connect(strings.Join(p.Conf.Servers, ","),
+			nats.UserInfo(p.Conf.User, p.Conf.Password))
 	}
 	if err != nil {
-		fmt.Printf("connect '%s' failed: %s\n", p.Conf.Url, err)
+		fmt.Printf("connect '%v' failed: %s\n", p.Conf.Servers, err)
 		return nil, err
 	}
-	fmt.Printf("connect '%s' success, %s\n", p.Conf.Url, nc.ConnectedClusterName())
+	fmt.Printf("connect '%v' success, %s\n", p.Conf.Servers, nc.ConnectedClusterName())
 
 	js, err = jetstream.New(nc)
 	if err != nil {
 		nc.Close()
-		fmt.Printf("make jetstream '%s' failed: %s\n", p.Conf.Url, err)
+		fmt.Printf("make jetstream '%v' failed: %s\n", p.Conf.Servers, err)
 		return nil, err
 	}
 

@@ -7,3 +7,5 @@ build/windows/nsis/MicrosoftEdgeWebview2Setup.exe
 frontend/bindings
 *.log
 *.exe
+natsui.toml
+kafcli.hist

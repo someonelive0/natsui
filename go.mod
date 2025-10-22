@@ -3,7 +3,10 @@ module natsui
 go 1.24.0
 
 require (
+	github.com/BurntSushi/toml v1.4.0
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
+	github.com/desertbit/grumble v1.2.0
+	github.com/fatih/color v1.18.0
 	github.com/nats-io/nats.go v1.47.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/wailsapp/wails/v3 v3.0.0-alpha.36
@@ -18,6 +21,10 @@ require (
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/cyphar/filepath-securejoin v0.5.0 // indirect
+	github.com/desertbit/closer/v3 v3.1.3 // indirect
+	github.com/desertbit/columnize v2.1.0+incompatible // indirect
+	github.com/desertbit/go-shlex v0.1.1 // indirect
+	github.com/desertbit/readline v1.5.1 // indirect
 	github.com/ebitengine/purego v0.9.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
@@ -27,6 +34,8 @@ require (
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/jchv/go-winloader v0.0.0-20250406163304-c1995be93bd1 // indirect
 	github.com/kevinburke/ssh_config v1.4.0 // indirect
