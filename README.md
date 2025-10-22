@@ -21,6 +21,8 @@ This software is under MIT license, to visit file [LICENSE](LICENSE) and https:/
 2. To run your application in development mode, use the following command:
 
    ```
+   go install -v github.com/wailsapp/wails/v3/cmd/wails3@latest
+
    wails3 dev
 
    # frontend dev
